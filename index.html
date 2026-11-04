@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sammy & Som</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #faf7f2;
+      --card-bg: #ffffff;
+      --text: #211d1a;
+      --muted: #736b63;
+      --border: #e8e2d8;
+      
+      --accent-sammy: #f06a4b;
+      --accent-sammy-light: #fbeee9;
+      --accent-som: #4382ec;
+      --accent-som-light: #edf3fd;
+      
+      --radius: 20px;
+      --shadow-sm: 0 4px 12px rgba(33, 29, 26, 0.04);
+      --shadow-hover: 0 16px 32px rgba(33, 29, 26, 0.08);
+      --transition: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow-x: hidden;
+      padding: 24px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    /* Ambient soft background shapes */
+    .blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      z-index: -1;
+      opacity: 0.6;
+      pointer-events: none;
+      transition: transform 1.2s var(--transition);
+    }
+
+    .blob-1 {
+      width: 260px;
+      height: 260px;
+      background: #ffd6cc;
+      top: -40px;
+      left: 10%;
+    }
+
+    .blob-2 {
+      width: 320px;
+      height: 320px;
+      background: #d4e5ff;
+      bottom: -60px;
+      right: 5%;
+    }
+
+    /* Header Nav */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0 32px;
+    }
+
+    .brand {
+      font-weight: 800;
+      font-size: 1.15rem;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand-pill {
+      font-size: 0.75rem;
+      font-weight: 600;
+      background: rgba(33, 29, 26, 0.06);
+      padding: 4px 10px;
+      border-radius: 100px;
+      color: var(--muted);
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #22c55e;
+      display: inline-block;
+      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.2);
+    }
+
+    /* Main Content */
+    main {
+      padding: 20px 0;
+    }
+
+    .hero-title {
+      font-size: clamp(2.4rem, 6vw, 3.8rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+      margin-bottom: 16px;
+    }
+
+    .hero-sub {
+      font-size: clamp(1.05rem, 2.5vw, 1.2rem);
+      color: var(--muted);
+      max-width: 480px;
+      margin-bottom: 40px;
+      font-weight: 450;
+    }
+
+    /* Person Cards */
+    .friends-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      position: relative;
+      cursor: pointer;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.4s var(--transition), 
+                  box-shadow 0.4s var(--transition), 
+                  border-color 0.4s var(--transition);
+      user-select: none;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .card:active {
+      transform: scale(0.98);
+    }
+
+    .card-sammy:hover {
+      border-color: var(--accent-sammy);
+    }
+
+    .card-som:hover {
+      border-color: var(--accent-som);
+    }
+
+    .card-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 16px;
+      transition: transform 0.3s var(--transition);
+    }
+
+    .card:hover .card-icon {
+      transform: scale(1.1) rotate(-4deg);
+    }
+
+    .card-sammy .card-icon {
+      background: var(--accent-sammy-light);
+    }
+
+    .card-som .card-icon {
+      background: var(--accent-som-light);
+    }
+
+    .card-name {
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 4px;
+    }
+
+    .card-role {
+      font-size: 0.9rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .interaction-cue {
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-top: 16px;
+      display: block;
+      opacity: 0;
+      transform: translateY(4px);
+      transition: all 0.3s var(--transition);
+    }
+
+    .card-sammy .interaction-cue { color: var(--accent-sammy); }
+    .card-som .interaction-cue { color: var(--accent-som); }
+
+    .card:hover .interaction-cue {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Live Interaction Log */
+    .activity-bar {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 8px 12px 8px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .activity-text {
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .activity-text strong {
+      color: var(--text);
+    }
+
+    .nudge-btn {
+      background: var(--text);
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 100px;
+      font-family: inherit;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .nudge-btn:hover {
+      opacity: 0.9;
+    }
+
+    .nudge-btn:active {
+      transform: scale(0.95);
+    }
+
+    /* Footer */
+    footer {
+      padding-top: 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+
+    .links {
+      display: flex;
+      gap: 16px;
+    }
+
+    .links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+
+    .links a:hover {
+      color: var(--text);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 520px) {
+      body {
+        padding: 16px;
+      }
+      
+      .friends-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .card {
+        padding: 20px;
+      }
+
+      .interaction-cue {
+        opacity: 1;
+        transform: none;
+      }
+
+      footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="blob blob-1" id="blob1"></div>
+  <div class="blob blob-2" id="blob2"></div>
+
+  <div class="container">
+    <header>
+      <div class="brand">
+        <span>s&s.</span>
+        <span class="brand-pill">side project</span>
+      </div>
+      <div style="display: flex; align-items: center; gap: 8px; font-size: 0.85rem; font-weight: 600;">
+        <span class="status-dot"></span>
+        <span>Online</span>
+      </div>
+    </header>
+
+    <main>
+      <h1 class="hero-title">Just Sammy<br>&amp; Som.</h1>
+      <p class="hero-sub">Two friends building, sketching, and testing things on the internet together. Tap a profile to say hi.</p>
+
+      <section class="friends-grid">
+        <!-- Sammy -->
+        <div class="card card-sammy" onclick="handleCardClick('Sammy', '⚡️')">
+          <div class="card-icon">🍊</div>
+          <div class="card-name">Sammy</div>
+          <div class="card-role">Idea sprint &amp; build</div>
+          <span class="interaction-cue">Tap to wave 👋</span>
+        </div>
+
+        <!-- Som -->
+        <div class="card card-som" onclick="handleCardClick('Som', '🎨')">
+          <div class="card-icon">🫐</div>
+          <div class="card-name">Som</div>
+          <div class="card-role">Design &amp; aesthetics</div>
+          <span class="interaction-cue">Tap to wave 👋</span>
+        </div>
+      </section>
+
+      <!-- Interactive micro-bar -->
+      <div class="activity-bar">
+        <span class="activity-text" id="statusMessage">
+          Everything quiet right now.
+        </span>
+        <button class="nudge-btn" onclick="randomNudge()">
+          <span>Poke</span> 👉
+        </button>
+      </div>
+    </main>
+
+    <footer>
+      <span>&copy; Sammy &amp; Som</span>
+      <div class="links">
+        <a href="#about" onclick="updateStatus('Shared archive coming soon.')">Journal</a>
+        <a href="#lab" onclick="updateStatus('Lab experiments under construction.')">Lab</a>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    const messages = [
+      "Sammy is probably fixing a broken script.",
+      "Som is currently picking between two identical shades of grey.",
+      "Both of them are probably getting coffee.",
+      "A new project is 85% likely in progress."
+    ];
+
+    const statusEl = document.getElementById('statusMessage');
+    const blob1 = document.getElementById('blob1');
+    const blob2 = document.getElementById('blob2');
+
+    function updateStatus(text) {
+      statusEl.style.opacity = '0';
+      setTimeout(() => {
+        statusEl.innerHTML = text;
+        statusEl.style.opacity = '1';
+      }, 150);
+    }
+
+    function handleCardClick(name, emoji) {
+      updateStatus(`You waved at <strong>${name}</strong>! ${emoji}`);
+      triggerSoftBounce();
+    }
+
+    function randomNudge() {
+      const msg = messages[Math.floor(Math.random() * messages.length)];
+      updateStatus(msg);
+      triggerSoftBounce();
+    }
+
+    function triggerSoftBounce() {
+      blob1.style.transform = `translate(${Math.random() * 40 - 20}px, ${Math.random() * 40 - 20}px)`;
+      blob2.style.transform = `translate(${Math.random() * 40 - 20}px, ${Math.random() * 40 - 20}px)`;
+    }
+
+    // Gentle parallax on desktop pointer
+    window.addEventListener('pointermove', (e) => {
+      const x = (e.clientX / window.innerWidth - 0.5) * 20;
+      const y = (e.clientY / window.innerHeight - 0.5) * 20;
+      blob1.style.transform = `translate(${x}px, ${y}px)`;
+      blob2.style.transform = `translate(${-x}px, ${-y}px)`;
+    });
+  </script>
+</body>
+</html>
