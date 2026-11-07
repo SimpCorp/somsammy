@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Sammy & Som</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -44,7 +44,7 @@
 
     .container {
       width: 100%;
-      max-width: 620px;
+      max-width: 680px;
       margin: 0 auto;
       display: flex;
       flex-direction: column;
@@ -52,13 +52,13 @@
       justify-content: space-between;
     }
 
-    /* Subtle ambient glows */
+    /* Ambient glow */
     .glow {
       position: fixed;
-      width: 320px;
-      height: 320px;
+      width: 340px;
+      height: 340px;
       background: var(--lemon-glow);
-      filter: blur(100px);
+      filter: blur(110px);
       opacity: 0.35;
       border-radius: 50%;
       pointer-events: none;
@@ -70,7 +70,7 @@
     /* Header */
     header {
       position: relative;
-      z-index: 1;
+      z-index: 2;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -93,12 +93,12 @@
       border: 1px solid var(--border);
     }
 
-    /* Main Area */
+    /* Main Content */
     main {
       position: relative;
       z-index: 1;
       margin: auto 0;
-      padding: 24px 0;
+      padding: 16px 0 32px 0;
     }
 
     .headline {
@@ -106,25 +106,25 @@
       font-weight: 800;
       line-height: 1.1;
       letter-spacing: -0.04em;
-      margin-bottom: 36px;
+      margin-bottom: 28px;
     }
 
-    /* Interactive Lemon Counter/Squeezer */
+    /* Interactive Lemon Counter */
     .lemon-stage {
       display: flex;
       align-items: center;
       gap: 16px;
-      background: #fff;
+      background: #ffffff;
       border: 1px solid var(--border);
-      padding: 14px 20px;
+      padding: 14px 22px;
       border-radius: 100px;
-      margin-bottom: 32px;
+      margin-bottom: 28px;
       width: fit-content;
       box-shadow: 0 4px 16px rgba(0,0,0,0.03);
     }
 
     .interactive-lemon {
-      font-size: 1.8rem;
+      font-size: 1.85rem;
       cursor: pointer;
       user-select: none;
       display: inline-block;
@@ -142,13 +142,14 @@
     }
 
     .lemon-info {
-      font-size: 0.9rem;
+      font-size: 0.92rem;
       font-weight: 600;
       color: var(--muted);
     }
 
     .lemon-info strong {
       color: var(--text);
+      font-weight: 800;
     }
 
     /* Profile Cards */
@@ -156,13 +157,14 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 16px;
+      margin-bottom: 24px;
     }
 
     .profile-card {
       background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 24px;
+      padding: 22px;
       display: flex;
       flex-direction: column;
       gap: 8px;
@@ -176,15 +178,40 @@
       border-color: #e0d9cb;
     }
 
+    .name-row {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
     .name {
       font-size: 1.35rem;
       font-weight: 800;
       letter-spacing: -0.02em;
     }
 
+    .age-text {
+      font-size: 0.95rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .age-highlight-sammy {
+      font-size: calc(0.95rem + 5px);
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.02em;
+    }
+
+    .age-highlight-som {
+      font-weight: 800;
+      color: var(--text);
+    }
+
     .role-badge {
       align-self: flex-start;
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.04em;
@@ -195,10 +222,317 @@
     }
 
     .dialogue-cue {
-      margin-top: 12px;
+      margin-top: 6px;
       font-size: 0.85rem;
       color: var(--muted);
       font-style: italic;
+    }
+
+    /* Actions Bar */
+    .actions-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .btn-action {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.88rem;
+      font-weight: 700;
+      padding: 12px 20px;
+      border-radius: 100px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+      transition: transform 0.25s var(--transition), box-shadow 0.25s var(--transition), border-color 0.25s var(--transition);
+    }
+
+    .btn-action:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 18px rgba(0,0,0,0.04);
+      border-color: #ded8cb;
+    }
+
+    .btn-action:active {
+      transform: scale(0.98);
+    }
+
+    .btn-action.primary {
+      background: #2c2724;
+      color: #ffffff;
+      border-color: #2c2724;
+    }
+
+    .btn-action.primary:hover {
+      background: #191614;
+    }
+
+    /* Modals Overlay */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(44, 39, 36, 0.45);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s var(--transition);
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-card {
+      background: #ffffff;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      max-width: 520px;
+      width: 100%;
+      max-height: 88vh;
+      overflow-y: auto;
+      padding: 28px;
+      position: relative;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.12);
+      transform: translateY(20px) scale(0.96);
+      transition: transform 0.35s var(--transition);
+    }
+
+    .modal-overlay.active .modal-card {
+      transform: translateY(0) scale(1);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .modal-title {
+      font-size: 1.28rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .modal-close {
+      background: #f4efe6;
+      border: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      font-size: 1.1rem;
+      color: var(--muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+      transition: background 0.2s ease;
+    }
+
+    .modal-close:hover {
+      background: #e9e2d5;
+      color: var(--text);
+    }
+
+    /* Agreement Vault specific */
+    .vault-auth {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .input-field, .select-field, .textarea-field {
+      width: 100%;
+      font-family: inherit;
+      font-size: 0.95rem;
+      padding: 12px 16px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: #faf8f5;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+
+    .input-field:focus, .select-field:focus, .textarea-field:focus {
+      border-color: #c7beaf;
+      background: #ffffff;
+    }
+
+    .vault-error {
+      color: #dc2626;
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: none;
+    }
+
+    .agreement-container {
+      display: none;
+      position: relative;
+      min-height: 260px;
+      border-radius: 16px;
+      overflow: hidden;
+      background: #f7f5ed;
+      border: 1px solid var(--border);
+    }
+
+    .agreement-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .agreement-img.loaded {
+      opacity: 1;
+    }
+
+    .agreement-shimmer {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, #f0eae1 0%, #fdfbf7 50%, #f0eae1 100%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+    }
+
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+
+    /* Scheduled Plans styling */
+    .plans-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .plan-item {
+      padding: 16px;
+      background: #faf8f5;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      font-weight: 700;
+      font-size: 0.98rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .plan-index {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: #ece7dc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    /* Photo Deck Section */
+    .deck-section {
+      margin-top: 8px;
+    }
+
+    .deck-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .deck-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .deck-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    .lesson-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+      transition: transform 0.3s var(--transition);
+    }
+
+    .lesson-card:hover {
+      transform: translateY(-3px);
+    }
+
+    .lesson-img-wrap {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      background: #f7f5ed;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .lesson-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .lesson-body {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex: 1;
+    }
+
+    .lesson-uploader {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .lesson-note {
+      font-size: 0.9rem;
+      line-height: 1.4;
+      color: var(--text);
+      word-break: break-word;
+    }
+
+    .empty-deck {
+      padding: 32px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.92rem;
+      background: #ffffff;
+      border: 1px dashed var(--border);
+      border-radius: var(--radius);
+      grid-column: 1 / -1;
     }
 
     /* Footer */
@@ -214,7 +548,7 @@
       color: var(--muted);
     }
 
-    @media (max-width: 480px) {
+    @media (max-width: 520px) {
       body {
         padding: 18px;
       }
@@ -224,9 +558,22 @@
         gap: 12px;
       }
 
+      .actions-bar {
+        flex-direction: column;
+      }
+
+      .btn-action {
+        width: 100%;
+        justify-content: center;
+      }
+
       .lemon-stage {
         width: 100%;
         justify-content: center;
+      }
+
+      .deck-grid {
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -237,58 +584,416 @@
 
   <div class="container">
     <header>
-      <span class="brand">Sammy &amp; Som</span>
+      <span class="brand">Sammy & Som</span>
       <span class="dev-badge">under development</span>
     </header>
 
     <main>
-      <h1 class="headline">Sammy &amp; Som.</h1>
+      <h1 class="headline">Sammy & Som.</h1>
 
+      <!-- Cross-Device Real-Time Lemon Counter -->
       <div class="lemon-stage">
         <span class="interactive-lemon" id="lemonBtn" onclick="squeezeLemon()" title="Click to squeeze">🍋</span>
-        <span class="lemon-info" id="lemonStatus">Click the lemon to squeeze</span>
+        <span class="lemon-info" id="lemonStatus">Squeezed <strong id="lemonCount">...</strong> times 🍋</span>
       </div>
 
+      <!-- Profiles with Dynamic Accurate Ages -->
       <div class="cards-wrapper">
         <div class="profile-card">
           <span class="role-badge">The Teacher</span>
-          <div class="name">Sammy</div>
+          <div class="name-row">
+            <span class="name">Sammy</span>
+            <span class="age-text" id="sammyAgeDisplay"></span>
+          </div>
           <div class="dialogue-cue">“goodgirl”</div>
         </div>
 
         <div class="profile-card">
           <span class="role-badge">Good Student</span>
-          <div class="name">Som</div>
+          <div class="name-row">
+            <span class="name">Som</span>
+            <span class="age-text" id="somAgeDisplay"></span>
+          </div>
         </div>
       </div>
+
+      <!-- Actions Bar -->
+      <div class="actions-bar">
+        <button class="btn-action primary" onclick="openModal('uploadModal')">
+          <span>📸</span>
+          <span>Upload Lesson</span>
+        </button>
+        <button class="btn-action" onclick="openModal('plansModal')">
+          <span>📅</span>
+          <span>Scheduled Plans</span>
+        </button>
+        <button class="btn-action" onclick="openModal('agreementModal')">
+          <span>📜</span>
+          <span>Digital Agreement</span>
+        </button>
+      </div>
+
+      <!-- Photo Deck: Midnight Hour Lessons -->
+      <section class="deck-section">
+        <div class="deck-header">
+          <h2 class="deck-title">Midnight Hour Lessons</h2>
+        </div>
+        <div class="deck-grid" id="deckGrid">
+          <div class="empty-deck">Loading lessons...</div>
+        </div>
+      </section>
     </main>
 
     <footer>
-      <span>Sammy &amp; Som</span>
+      <span>Sammy & Som</span>
       <span>under development</span>
     </footer>
   </div>
 
+  <!-- MODAL 1: Agreement Vault -->
+  <div class="modal-overlay" id="agreementModal" onclick="handleOverlayClick(event, 'agreementModal')">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">Digitally Signed Agreement</h3>
+        <button class="modal-close" onclick="closeModal('agreementModal')">&times;</button>
+      </div>
+
+      <div id="vaultAuthStage" class="vault-auth">
+        <p style="font-size: 0.92rem; color: var(--muted); line-height: 1.4;">
+          This record is protected. Enter the keyphrase to decrypt and inspect the contract.
+        </p>
+        <input type="password" id="agreementKeyInput" class="input-field" placeholder="Enter keyphrase..." onkeydown="if(event.key === 'Enter') unlockAgreement()">
+        <span class="vault-error" id="vaultError">Incorrect keyphrase. Access denied.</span>
+        <button class="btn-action primary" style="width: 100%; justify-content: center;" onclick="unlockAgreement()">Unlock Contract</button>
+      </div>
+
+      <div id="agreementContainer" class="agreement-container">
+        <div class="agreement-shimmer" id="agreementShimmer"></div>
+        <img id="agreementImage" class="agreement-img" alt="Digital Agreement of Som relying on Sammy FOREVER">
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 2: Scheduled Plans -->
+  <div class="modal-overlay" id="plansModal" onclick="handleOverlayClick(event, 'plansModal')">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">Scheduled Plans</h3>
+        <button class="modal-close" onclick="closeModal('plansModal')">&times;</button>
+      </div>
+      <ul class="plans-list">
+        <li class="plan-item">
+          <span class="plan-index">1</span>
+          <span>Blackout in Peace and Calmness (2027)</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- MODAL 3: Upload Lesson -->
+  <div class="modal-overlay" id="uploadModal" onclick="handleOverlayClick(event, 'uploadModal')">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">New Midnight Lesson</h3>
+        <button class="modal-close" onclick="closeModal('uploadModal')">&times;</button>
+      </div>
+
+      <form id="uploadForm" onsubmit="handleUploadSubmit(event)" style="display: flex; flex-direction: column; gap: 14px;">
+        <div>
+          <label style="font-size: 0.8rem; font-weight: 700; color: var(--muted); text-transform: uppercase;">Image</label>
+          <input type="file" id="lessonFileInput" accept="image/*" class="input-field" style="margin-top: 6px;" required>
+        </div>
+
+        <div>
+          <label style="font-size: 0.8rem; font-weight: 700; color: var(--muted); text-transform: uppercase;">Uploaded By</label>
+          <select id="lessonUploaderSelect" class="select-field" style="margin-top: 6px;" required>
+            <option value="Som (18-25)">Som (18-25)</option>
+            <option value="Sammy (18)">Sammy (18)</option>
+          </select>
+        </div>
+
+        <div>
+          <label style="font-size: 0.8rem; font-weight: 700; color: var(--muted); text-transform: uppercase;">Optional Note or Emojis</label>
+          <textarea id="lessonNoteInput" class="textarea-field" rows="3" placeholder="Add details, cues, or emojis..." style="margin-top: 6px; resize: none;"></textarea>
+        </div>
+
+        <button type="submit" id="uploadSubmitBtn" class="btn-action primary" style="width: 100%; justify-content: center; margin-top: 8px;">
+          Upload to Deck
+        </button>
+      </form>
+    </div>
+  </div>
+
   <script>
-    let clicks = 0;
+    /* =================================================================
+       1. LIVE REAL-TIME LEMON COUNTER (CounterAPI + Polling Sync)
+       ================================================================= */
+    const COUNTER_NAMESPACE = "sammysom_v2";
+    const COUNTER_KEY = "lemons";
+    const COUNTER_GET_URL = `https://api.counterapi.dev/v1/${COUNTER_NAMESPACE}/${COUNTER_KEY}/`;
+    const COUNTER_UP_URL = `https://api.counterapi.dev/v1/${COUNTER_NAMESPACE}/${COUNTER_KEY}/up`;
+
+    let globalLemonCount = 0;
+    let isIncrementing = false;
     const lemonBtn = document.getElementById('lemonBtn');
-    const lemonStatus = document.getElementById('lemonStatus');
+    const lemonCountDisplay = document.getElementById('lemonCount');
 
-    function squeezeLemon() {
-      clicks++;
-      
-      // Animate bounce
-      lemonBtn.style.transform = `scale(${Math.max(0.7, 1.25 - clicks * 0.05)}) rotate(${clicks % 2 === 0 ? 12 : -12}deg)`;
-      setTimeout(() => {
-        lemonBtn.style.transform = '';
-      }, 180);
-
-      if (clicks === 1) {
-        lemonStatus.innerHTML = `Squeezed <strong>1</strong> time 🍋`;
-      } else {
-        lemonStatus.innerHTML = `Squeezed <strong>${clicks}</strong> times 🍋`;
+    async function fetchLemonCount() {
+      try {
+        const res = await fetch(COUNTER_GET_URL);
+        if (res.ok) {
+          const data = await res.json();
+          if (typeof data.count === 'number' && data.count !== globalLemonCount) {
+            globalLemonCount = data.count;
+            renderLemonCount(globalLemonCount);
+          }
+        }
+      } catch (e) {
+        // Silent background fallback
       }
     }
+
+    function renderLemonCount(count) {
+      lemonCountDisplay.textContent = count.toLocaleString();
+    }
+
+    async function squeezeLemon() {
+      // 1. Squash animation
+      lemonBtn.style.transform = `scale(0.82) rotate(${Math.random() > 0.5 ? 14 : -14}deg)`;
+      setTimeout(() => { lemonBtn.style.transform = ''; }, 180);
+
+      // 2. Optimistic UI update
+      globalLemonCount++;
+      renderLemonCount(globalLemonCount);
+
+      // 3. Sync to cloud
+      try {
+        const res = await fetch(COUNTER_UP_URL);
+        if (res.ok) {
+          const data = await res.json();
+          if (typeof data.count === 'number') {
+            globalLemonCount = data.count;
+            renderLemonCount(globalLemonCount);
+          }
+        }
+      } catch (e) {
+        // Optimistic count persists
+      }
+    }
+
+    // Auto-poll every 3.5s so changes on other devices sync smoothly
+    fetchLemonCount();
+    setInterval(() => {
+      if (!document.hidden) fetchLemonCount();
+    }, 3500);
+
+    /* =================================================================
+       2. DYNAMIC AGE CALCULATOR WITH SPECIFIED BRACKET RULES
+       ================================================================= */
+    function calculateAccurateAge(birthDate) {
+      const now = new Date();
+      let age = now.getFullYear() - birthDate.getFullYear();
+      const monthDiff = now.getMonth() - birthDate.getMonth();
+      if (monthDiff < 0 || (monthDiff === 0 && now.getDate() < birthDate.getDate())) {
+        age--;
+      }
+      return age;
+    }
+
+    function initProfileAges() {
+      const sammyBirth = new Date(2002, 4, 7); // May 7, 2002 (Month is 0-indexed)
+      const somBirth = new Date(2008, 4, 22);   // May 22, 2008
+
+      const sammyAge = calculateAccurateAge(sammyBirth);
+      const somAge = calculateAccurateAge(somBirth);
+
+      document.getElementById('sammyAgeDisplay').innerHTML = 
+        `${sammyAge} <span class="age-highlight-sammy">(stuck at 18)</span>`;
+
+      document.getElementById('somAgeDisplay').innerHTML = 
+        `${somAge} <span class="age-highlight-som">(18-25)</span>`;
+    }
+
+    /* =================================================================
+       3. MODAL CONTROLS & ESCAPE LISTENERS
+       ================================================================= */
+    function openModal(id) {
+      const modal = document.getElementById(id);
+      if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function closeModal(id) {
+      const modal = document.getElementById(id);
+      if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    }
+
+    function handleOverlayClick(event, id) {
+      if (event.target.id === id) closeModal(id);
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.modal-overlay.active').forEach(m => m.classList.remove('active'));
+        document.body.style.overflow = '';
+      }
+    });
+
+    /* =================================================================
+       4. DIGITAL AGREEMENT VAULT (github raw asset + case-insensitive)
+       ================================================================= */
+    const RAW_AGREEMENT_URL = "https://raw.githubusercontent.com/SimpCorp/somsammy/main/agreement.png";
+
+    function unlockAgreement() {
+      const input = document.getElementById('agreementKeyInput');
+      const err = document.getElementById('vaultError');
+      const val = (input.value || '').trim().toLowerCase();
+
+      if (val === 'lemon' || val === 'spank') {
+        err.style.display = 'none';
+        document.getElementById('vaultAuthStage').style.display = 'none';
+
+        const container = document.getElementById('agreementContainer');
+        const img = document.getElementById('agreementImage');
+        const shimmer = document.getElementById('agreementShimmer');
+
+        container.style.display = 'block';
+
+        img.onload = () => {
+          shimmer.style.display = 'none';
+          img.classList.add('loaded');
+        };
+        img.onerror = () => {
+          shimmer.style.display = 'none';
+          container.innerHTML = '<p style="padding: 24px; text-align: center; color: var(--muted); font-size: 0.88rem;">Agreement file not found on GitHub. Verify repository path.</p>';
+        };
+        img.src = RAW_AGREEMENT_URL;
+      } else {
+        err.style.display = 'block';
+        input.focus();
+      }
+    }
+
+    /* =================================================================
+       5. MIDNIGHT HOUR LESSONS (ImageKit Deck + Upload Handling)
+       ================================================================= */
+    const IMAGEKIT_CONFIG = {
+      publicKey: "public_/psC6PuA/bRzj8d1AzifigSdrx4=",
+      urlEndpoint: "https://ik.imagekit.io/sammysom",
+      folder: "/midnight-hour-lessons"
+    };
+
+    async function loadPhotoDeck() {
+      const deckGrid = document.getElementById('deckGrid');
+      try {
+        const res = await fetch('/api/lessons');
+        if (!res.ok) throw new Error();
+        const data = await res.json();
+        
+        if (data && data.deck && data.deck.length > 0) {
+          deckGrid.innerHTML = data.deck.map(renderLessonCard).join('');
+        } else {
+          deckGrid.innerHTML = '<div class="empty-deck">No lessons uploaded yet. Be the first to share one.</div>';
+        }
+      } catch (err) {
+        deckGrid.innerHTML = '<div class="empty-deck">No lessons loaded yet. Upload your first picture above!</div>';
+      }
+    }
+
+    function renderLessonCard(item) {
+      const escapedNote = (item.note || '').replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      return `
+        <article class="lesson-card">
+          <div class="lesson-img-wrap">
+            <img class="lesson-img" src="${item.thumbnailUrl || item.url}" alt="Lesson uploaded by ${item.uploader}" loading="lazy">
+          </div>
+          <div class="lesson-body">
+            <span class="lesson-uploader">${item.uploader}</span>
+            ${escapedNote ? `<p class="lesson-note">${escapedNote}</p>` : ''}
+          </div>
+        </article>
+      `;
+    }
+
+    async function handleUploadSubmit(e) {
+      e.preventDefault();
+      const fileInput = document.getElementById('lessonFileInput');
+      const uploaderSelect = document.getElementById('lessonUploaderSelect');
+      const noteInput = document.getElementById('lessonNoteInput');
+      const submitBtn = document.getElementById('uploadSubmitBtn');
+
+      if (!fileInput.files || fileInput.files.length === 0) return;
+
+      const file = fileInput.files[0];
+      const uploader = uploaderSelect.value;
+      const note = noteInput.value.trim();
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Uploading...';
+
+      try {
+        // 1. Get Auth Signature from Pages Function
+        const authRes = await fetch('/api/imagekit-auth');
+        if (!authRes.ok) throw new Error("Could not retrieve ImageKit upload token");
+        const { token, expire, signature } = await authRes.json();
+
+        // 2. Format tags for author & note storage
+        const safeNoteTag = "note:" + btoa(unescape(encodeURIComponent(note)));
+        const uploaderTag = "uploader:" + uploader;
+
+        // 3. Build multipart form
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("fileName", `${Date.now()}_${file.name.replace(/\s+/g, '_')}`);
+        formData.append("publicKey", IMAGEKIT_CONFIG.publicKey);
+        formData.append("signature", signature);
+        formData.append("expire", expire);
+        formData.append("token", token);
+        formData.append("folder", IMAGEKIT_CONFIG.folder);
+        formData.append("tags", `${uploaderTag},${safeNoteTag}`);
+
+        // 4. Send directly to ImageKit CDN
+        const ikRes = await fetch("https://upload.imagekit.io/api/v1/files/upload", {
+          method: "POST",
+          body: formData
+        });
+
+        if (!ikRes.ok) throw new Error("Image upload failed");
+        const uploadResult = await ikRes.json();
+
+        // 5. Prepend immediately to UI
+        const deckGrid = document.getElementById('deckGrid');
+        if (deckGrid.querySelector('.empty-deck')) {
+          deckGrid.innerHTML = '';
+        }
+        
+        const newCardHtml = renderLessonCard({
+          url: uploadResult.url,
+          thumbnailUrl: uploadResult.thumbnailUrl || `${uploadResult.url}?tr=w-600,q-85,f-auto`,
+          uploader: uploader,
+          note: note
+        });
+        deckGrid.insertAdjacentHTML('afterbegin', newCardHtml);
+
+        // Reset and close
+        document.getElementById('uploadForm').reset();
+        closeModal('uploadModal');
+      } catch (err) {
+        alert("Upload error: " + (err.message || "Something went wrong"));
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Upload to Deck';
+      }
+    }
+
+    // Initialize ages & load deck on boot
+    initProfileAges();
+    loadPhotoDeck();
   </script>
 </body>
 </html>
