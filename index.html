@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -13,13 +13,35 @@
     :root {
       --bg: #fdfcf7;
       --card-bg: #ffffff;
+      --card-hover-border: #e0d9cb;
       --text: #2c2724;
       --muted: #827b75;
       --border: #ece7dc;
+      --badge-bg: #f4efe6;
+      --tag-bg: #f7f5ed;
+      --tag-text: #635d55;
       --lemon-yellow: #fde047;
       --lemon-glow: #fef08a;
+      --overlay-bg: rgba(44, 39, 36, 0.45);
+      --input-bg: #faf8f5;
       --radius: 24px;
       --transition: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    [data-theme="dark"] {
+      --bg: #141312;
+      --card-bg: #1c1a18;
+      --card-hover-border: #383430;
+      --text: #f5f2eb;
+      --muted: #968f86;
+      --border: #292522;
+      --badge-bg: #24211e;
+      --tag-bg: #26221f;
+      --tag-text: #d6cebf;
+      --lemon-yellow: #fde047;
+      --lemon-glow: #eab308;
+      --overlay-bg: rgba(0, 0, 0, 0.72);
+      --input-bg: #181615;
     }
 
     * {
@@ -27,6 +49,7 @@
       margin: 0;
       padding: 0;
       -webkit-tap-highlight-color: transparent;
+      transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
     }
 
     body {
@@ -54,11 +77,11 @@
 
     .glow {
       position: fixed;
-      width: 340px;
-      height: 340px;
+      width: 360px;
+      height: 360px;
       background: var(--lemon-glow);
-      filter: blur(110px);
-      opacity: 0.35;
+      filter: blur(120px);
+      opacity: 0.22;
       border-radius: 50%;
       pointer-events: none;
       z-index: 0;
@@ -66,6 +89,7 @@
       right: -60px;
     }
 
+    /* Header */
     header {
       position: relative;
       z-index: 2;
@@ -75,6 +99,12 @@
       padding-bottom: 24px;
     }
 
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
     .brand {
       font-weight: 800;
       font-size: 1.15rem;
@@ -82,15 +112,35 @@
     }
 
     .dev-badge {
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       font-weight: 600;
-      background: #f4efe6;
+      background: var(--badge-bg);
       color: var(--muted);
-      padding: 6px 12px;
+      padding: 5px 12px;
       border-radius: 100px;
       border: 1px solid var(--border);
     }
 
+    .theme-toggle-btn {
+      background: var(--badge-bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: transform 0.2s var(--transition);
+    }
+
+    .theme-toggle-btn:hover {
+      transform: scale(1.08);
+    }
+
+    /* Main Area */
     main {
       position: relative;
       z-index: 1;
@@ -106,36 +156,42 @@
       margin-bottom: 28px;
     }
 
-    /* Counter */
+    /* Premium Lemon Squeezer */
     .lemon-stage {
       display: flex;
       align-items: center;
       gap: 16px;
-      background: #ffffff;
+      background: var(--card-bg);
       border: 1px solid var(--border);
-      padding: 14px 22px;
+      padding: 12px 22px;
       border-radius: 100px;
       margin-bottom: 28px;
       width: fit-content;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.03);
-    }
-
-    .interactive-lemon {
-      font-size: 1.85rem;
-      cursor: pointer;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.03);
       user-select: none;
-      display: inline-block;
+    }
+
+    .lemon-btn-wrap {
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       transform-origin: center;
-      transition: transform 0.2s var(--transition);
-      line-height: 1;
+      transition: transform 0.18s var(--transition);
     }
 
-    .interactive-lemon:hover {
-      transform: scale(1.18) rotate(-8deg);
+    .lemon-btn-wrap:hover {
+      transform: scale(1.1) rotate(-6deg);
     }
 
-    .interactive-lemon:active {
-      transform: scale(0.88) rotate(12deg);
+    .lemon-btn-wrap:active {
+      transform: scale(0.85) rotate(10deg);
+    }
+
+    .lemon-vector {
+      width: 42px;
+      height: 42px;
+      filter: drop-shadow(0 4px 8px rgba(234, 179, 8, 0.25));
     }
 
     .lemon-info {
@@ -149,7 +205,7 @@
       font-weight: 800;
     }
 
-    /* Profiles */
+    /* Profile Cards */
     .cards-wrapper {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -172,7 +228,7 @@
     .profile-card:hover {
       transform: translateY(-4px);
       box-shadow: 0 12px 28px rgba(0, 0, 0, 0.05);
-      border-color: #e0d9cb;
+      border-color: var(--card-hover-border);
     }
 
     .name-row {
@@ -195,10 +251,10 @@
     }
 
     .age-highlight-sammy {
-      font-size: calc(0.95rem + 5px);
+      font-size: calc(0.95rem + 2.5px);
       font-weight: 800;
       color: var(--text);
-      letter-spacing: -0.02em;
+      letter-spacing: -0.015em;
     }
 
     .age-highlight-som {
@@ -214,8 +270,8 @@
       letter-spacing: 0.04em;
       padding: 4px 10px;
       border-radius: 8px;
-      background: #f7f5ed;
-      color: #635d55;
+      background: var(--tag-bg);
+      color: var(--tag-text);
     }
 
     .dialogue-cue {
@@ -234,7 +290,7 @@
     }
 
     .btn-action {
-      background: #ffffff;
+      background: var(--card-bg);
       border: 1px solid var(--border);
       color: var(--text);
       font-family: inherit;
@@ -255,7 +311,7 @@
     .btn-action:hover {
       transform: translateY(-2px);
       box-shadow: 0 8px 18px rgba(0,0,0,0.04);
-      border-color: #ded8cb;
+      border-color: var(--card-hover-border);
     }
 
     .btn-action:active {
@@ -263,22 +319,63 @@
     }
 
     .btn-action.primary {
-      background: #2c2724;
-      color: #ffffff;
-      border-color: #2c2724;
+      background: var(--text);
+      color: var(--bg);
+      border-color: var(--text);
     }
 
     .btn-action.primary:hover {
-      background: #191614;
+      opacity: 0.92;
+    }
+
+    /* Milestone Banner Overlay */
+    .milestone-overlay {
+      position: fixed;
+      top: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-120px);
+      background: var(--card-bg);
+      border: 1px solid var(--lemon-yellow);
+      padding: 14px 28px;
+      border-radius: 100px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 16px 36px rgba(234, 179, 8, 0.25);
+      z-index: 999;
+      pointer-events: none;
+      opacity: 0;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+    }
+
+    .milestone-overlay.visible {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    .milestone-spark {
+      font-size: 1.4rem;
+      animation: spin 3s linear infinite;
+    }
+
+    @keyframes spin {
+      100% { transform: rotate(360deg); }
+    }
+
+    .milestone-text {
+      font-size: 0.95rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text);
     }
 
     /* Modals Overlay */
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(44, 39, 36, 0.45);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+      background: var(--overlay-bg);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       z-index: 100;
       display: flex;
       align-items: center;
@@ -295,7 +392,7 @@
     }
 
     .modal-card {
-      background: #ffffff;
+      background: var(--card-bg);
       border-radius: var(--radius);
       border: 1px solid var(--border);
       max-width: 540px;
@@ -304,7 +401,7 @@
       overflow-y: auto;
       padding: 28px;
       position: relative;
-      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.12);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.2);
       transform: translateY(20px) scale(0.96);
       transition: transform 0.35s var(--transition);
     }
@@ -331,7 +428,7 @@
     }
 
     .modal-close {
-      background: #f4efe6;
+      background: var(--badge-bg);
       border: none;
       width: 32px;
       height: 32px;
@@ -343,12 +440,6 @@
       align-items: center;
       justify-content: center;
       line-height: 1;
-      transition: background 0.2s ease;
-    }
-
-    .modal-close:hover {
-      background: #e9e2d5;
-      color: var(--text);
     }
 
     .input-field, .select-field, .textarea-field {
@@ -358,32 +449,30 @@
       padding: 12px 16px;
       border-radius: 14px;
       border: 1px solid var(--border);
-      background: #faf8f5;
+      background: var(--input-bg);
       color: var(--text);
       outline: none;
-      transition: border-color 0.2s ease, background 0.2s ease;
     }
 
     .input-field:focus, .select-field:focus, .textarea-field:focus {
-      border-color: #c7beaf;
-      background: #ffffff;
+      border-color: var(--muted);
     }
 
     .vault-error {
-      color: #dc2626;
+      color: #ef4444;
       font-size: 0.85rem;
       font-weight: 600;
       display: none;
     }
 
-    /* Agreement Styles */
+    /* Agreement Vault */
     .agreement-container {
       display: none;
       position: relative;
       min-height: 260px;
       border-radius: 16px;
       overflow: hidden;
-      background: #f7f5ed;
+      background: var(--tag-bg);
       border: 1px solid var(--border);
     }
 
@@ -402,7 +491,7 @@
     .agreement-shimmer {
       position: absolute;
       inset: 0;
-      background: linear-gradient(90deg, #f0eae1 0%, #fdfbf7 50%, #f0eae1 100%);
+      background: linear-gradient(90deg, var(--tag-bg) 0%, var(--card-bg) 50%, var(--tag-bg) 100%);
       background-size: 200% 100%;
       animation: shimmer 1.5s infinite;
     }
@@ -422,7 +511,7 @@
 
     .plan-item {
       padding: 16px;
-      background: #faf8f5;
+      background: var(--input-bg);
       border: 1px solid var(--border);
       border-radius: 16px;
       font-weight: 700;
@@ -436,7 +525,7 @@
       width: 26px;
       height: 26px;
       border-radius: 50%;
-      background: #ece7dc;
+      background: var(--badge-bg);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -444,7 +533,7 @@
       color: var(--muted);
     }
 
-    /* Midnight Lessons Deck Inside Vault */
+    /* Midnight Lessons Vault */
     .lessons-deck-container {
       display: none;
       flex-direction: column;
@@ -466,26 +555,19 @@
     }
 
     .lesson-card {
-      background: #ffffff;
+      background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: 18px;
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.02);
-      transition: transform 0.25s var(--transition), box-shadow 0.25s var(--transition);
       position: relative;
-    }
-
-    .lesson-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 10px 22px rgba(0,0,0,0.05);
     }
 
     .lesson-img-wrap {
       width: 100%;
       aspect-ratio: 4 / 3;
-      background: #f7f5ed;
+      background: var(--tag-bg);
       overflow: hidden;
       position: relative;
       cursor: pointer;
@@ -510,22 +592,21 @@
       width: 32px;
       height: 32px;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.92);
+      background: var(--card-bg);
       border: 1px solid var(--border);
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
       font-size: 0.95rem;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
-      transition: transform 0.2s ease, background 0.2s ease;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
       z-index: 5;
     }
 
     .lesson-delete-btn:hover {
-      transform: scale(1.1);
-      background: #fee2e2;
-      border-color: #fca5a5;
+      background: #ef4444;
+      color: #ffffff;
+      border-color: #ef4444;
     }
 
     .lesson-body {
@@ -552,8 +633,7 @@
 
     .lesson-date {
       font-size: 0.7rem;
-      color: #a8a199;
-      font-weight: 500;
+      color: var(--muted);
     }
 
     .lesson-note {
@@ -569,19 +649,19 @@
       text-align: center;
       color: var(--muted);
       font-size: 0.92rem;
-      background: #faf8f5;
+      background: var(--input-bg);
       border: 1px dashed var(--border);
       border-radius: var(--radius);
       grid-column: 1 / -1;
     }
 
-    /* Fullscreen Responsive Lightbox */
+    /* Lightbox */
     .lightbox-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(20, 18, 16, 0.92);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+      background: rgba(12, 11, 10, 0.94);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       z-index: 200;
       display: flex;
       flex-direction: column;
@@ -613,12 +693,6 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      transition: background 0.2s ease;
-      z-index: 10;
-    }
-
-    .lightbox-close:hover {
-      background: rgba(255, 255, 255, 0.3);
     }
 
     .lightbox-content {
@@ -637,7 +711,7 @@
       height: auto;
       object-fit: contain;
       border-radius: 14px;
-      box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.5);
     }
 
     .lightbox-caption {
@@ -673,23 +747,11 @@
     }
 
     @media (max-width: 520px) {
-      body {
-        padding: 18px;
-      }
-      .cards-wrapper {
-        grid-template-columns: 1fr;
-        gap: 12px;
-      }
-      .actions-bar {
-        grid-template-columns: 1fr;
-      }
-      .lemon-stage {
-        width: 100%;
-        justify-content: center;
-      }
-      .deck-grid {
-        grid-template-columns: 1fr;
-      }
+      body { padding: 18px; }
+      .cards-wrapper { grid-template-columns: 1fr; gap: 12px; }
+      .actions-bar { grid-template-columns: 1fr; }
+      .lemon-stage { width: 100%; justify-content: center; }
+      .deck-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -697,22 +759,52 @@
 
   <div class="glow"></div>
 
+  <!-- Milestone Century Broadcast Overlay -->
+  <div class="milestone-overlay" id="milestoneOverlay">
+    <span class="milestone-spark">✨</span>
+    <span class="milestone-text" id="milestoneMsg">100 Squeezes Reached!</span>
+  </div>
+
   <div class="container">
     <header>
-      <span class="brand">Sammy & Som</span>
-      <span class="dev-badge">under development</span>
+      <div class="header-left">
+        <span class="brand">Sammy & Som</span>
+        <span class="dev-badge">under development</span>
+      </div>
+      <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" title="Toggle Theme">
+        <span id="themeIcon">🌓</span>
+      </button>
     </header>
 
     <main>
       <h1 class="headline">Sammy & Som.</h1>
 
-      <!-- Real-Time Cloud Squeezer -->
+      <!-- Upgraded Vector Lemon Squeezer -->
       <div class="lemon-stage">
-        <span class="interactive-lemon" id="lemonBtn" onclick="squeezeLemon()" title="Click to squeeze">🍋</span>
+        <div class="lemon-btn-wrap" id="lemonBtn" onclick="squeezeLemon()" title="Squeeze Lemon">
+          <svg class="lemon-vector" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="lemonGrad" x1="12" y1="12" x2="52" y2="52" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#fff066"/>
+                <stop offset="60%" stop-color="#facc15"/>
+                <stop offset="100%" stop-color="#eab308"/>
+              </linearGradient>
+              <linearGradient id="leafGrad" x1="42" y1="6" x2="56" y2="20" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#4ade80"/>
+                <stop offset="100%" stop-color="#15803d"/>
+              </linearGradient>
+            </defs>
+            <path d="M44 14C48 8 56 6 56 6C56 6 54 14 48 18C44 20 42 16 44 14Z" fill="url(#leafGrad)"/>
+            <path d="M52.5 19.5C59.5 28.5 54 44 44.5 52C35 60 20 57.5 12 49.5C4 41.5 4.5 26.5 13.5 17C22.5 7.5 38 4.5 46 12C49 14.5 50.5 17 52.5 19.5Z" fill="url(#lemonGrad)"/>
+            <path d="M19 18C28 11 40 14 43 18" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" opacity="0.65"/>
+            <circle cx="53" cy="20" r="1.5" fill="#ca8a04"/>
+            <circle cx="11.5" cy="50.5" r="1.5" fill="#ca8a04"/>
+          </svg>
+        </div>
         <span class="lemon-info" id="lemonStatus">Squeezed <strong id="lemonCount">...</strong> times 🍋</span>
       </div>
 
-      <!-- Profiles with Dynamic Ages -->
+      <!-- Profiles with Dynamic Accurate Ages -->
       <div class="cards-wrapper">
         <div class="profile-card">
           <span class="role-badge">The Teacher</span>
@@ -732,7 +824,7 @@
         </div>
       </div>
 
-      <!-- Action Buttons -->
+      <!-- Actions Bar -->
       <div class="actions-bar">
         <button class="btn-action primary" onclick="openLessonsVault()">
           <span>🌙</span>
@@ -744,7 +836,7 @@
         </button>
         <button class="btn-action" onclick="openModal('agreementModal')">
           <span>📜</span>
-          <span>Digital Agreement</span>
+          <span>Exclusive Agreement</span>
         </button>
       </div>
     </main>
@@ -755,7 +847,7 @@
     </footer>
   </div>
 
-  <!-- MODAL: Midnight Lessons Vault (Password Protected + Photo Deck) -->
+  <!-- MODAL: Midnight Lessons Vault -->
   <div class="modal-overlay" id="lessonsModal" onclick="handleOverlayClick(event, 'lessonsModal')">
     <div class="modal-card wide">
       <div class="modal-header">
@@ -763,7 +855,6 @@
         <button class="modal-close" onclick="closeModal('lessonsModal')">&times;</button>
       </div>
 
-      <!-- Password Lock Screen -->
       <div id="lessonsAuthStage" style="display: flex; flex-direction: column; gap: 14px;">
         <p style="font-size: 0.92rem; color: var(--muted); line-height: 1.4;">
           This private album is locked. Enter the keyphrase to access the deck.
@@ -773,7 +864,6 @@
         <button class="btn-action primary" style="width: 100%;" onclick="unlockLessons()">Unlock Deck</button>
       </div>
 
-      <!-- Unlocked Photo Deck -->
       <div id="lessonsDeckContainer" class="lessons-deck-container">
         <div class="deck-topbar">
           <span style="font-size: 0.9rem; font-weight: 700; color: var(--muted);" id="deckStats">0 lessons saved</span>
@@ -878,54 +968,108 @@
 
   <script>
     /* =================================================================
-       1. SYNCHRONIZED LEMON COUNTER
+       1. THEME ENGINE (Light & Dark with persistence)
        ================================================================= */
-    const COUNTER_NAMESPACE = "sammysom_v2";
-    const COUNTER_KEY = "lemons";
-    const COUNTER_GET_URL = `https://api.counterapi.dev/v1/${COUNTER_NAMESPACE}/${COUNTER_KEY}/`;
-    const COUNTER_UP_URL = `https://api.counterapi.dev/v1/${COUNTER_NAMESPACE}/${COUNTER_KEY}/up`;
+    function initTheme() {
+      const storedTheme = localStorage.getItem('somsammy_theme');
+      if (storedTheme) {
+        document.documentElement.setAttribute('data-theme', storedTheme);
+      } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+      updateThemeIcon();
+    }
 
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('somsammy_theme', next);
+      updateThemeIcon();
+    }
+
+    function updateThemeIcon() {
+      const current = document.documentElement.getAttribute('data-theme');
+      const icon = document.getElementById('themeIcon');
+      if (icon) icon.textContent = current === 'dark' ? '☀️' : '🌙';
+    }
+
+    initTheme();
+
+    /* =================================================================
+       2. SYNCHRONIZED LEMON COUNTER (Cloudflare KV /api/lemon)
+       ================================================================= */
+    const ENDPOINT = "/api/lemon";
     let globalLemonCount = 0;
+    let lastKnownHundred = 0;
     const lemonBtn = document.getElementById('lemonBtn');
     const lemonCountDisplay = document.getElementById('lemonCount');
 
+    function checkMilestone(newCount, oldCount) {
+      if (oldCount > 0 && Math.floor(newCount / 100) > Math.floor(oldCount / 100)) {
+        triggerMilestoneOverlay(Math.floor(newCount / 100) * 100);
+      }
+      lastKnownHundred = Math.floor(newCount / 100);
+    }
+
+    function triggerMilestoneOverlay(countNum) {
+      const overlay = document.getElementById('milestoneOverlay');
+      const msg = document.getElementById('milestoneMsg');
+      msg.textContent = `${countNum.toLocaleString()} Squeezes Reached! 🍋`;
+      overlay.classList.add('visible');
+      setTimeout(() => {
+        overlay.classList.remove('visible');
+      }, 5000);
+    }
+
+    function updateDisplay(val) {
+      if (typeof val === 'number' && !isNaN(val)) {
+        const prev = globalLemonCount;
+        globalLemonCount = val;
+        lemonCountDisplay.textContent = globalLemonCount.toLocaleString();
+        checkMilestone(globalLemonCount, prev);
+      }
+    }
+
     async function fetchLemonCount() {
       try {
-        const res = await fetch(COUNTER_GET_URL);
+        const res = await fetch(ENDPOINT);
         if (res.ok) {
           const data = await res.json();
-          if (typeof data.count === 'number' && data.count !== globalLemonCount) {
-            globalLemonCount = data.count;
-            lemonCountDisplay.textContent = globalLemonCount.toLocaleString();
+          if (typeof data.count === 'number') {
+            updateDisplay(data.count);
           }
         }
       } catch (e) {}
     }
 
     async function squeezeLemon() {
-      lemonBtn.style.transform = `scale(0.82) rotate(${Math.random() > 0.5 ? 14 : -14}deg)`;
+      lemonBtn.style.transform = `scale(0.8) rotate(${Math.random() > 0.5 ? 12 : -12}deg)`;
       setTimeout(() => { lemonBtn.style.transform = ''; }, 180);
 
+      const prev = globalLemonCount;
       globalLemonCount++;
       lemonCountDisplay.textContent = globalLemonCount.toLocaleString();
+      checkMilestone(globalLemonCount, prev);
 
       try {
-        const res = await fetch(COUNTER_UP_URL);
+        const res = await fetch(ENDPOINT, { method: "POST" });
         if (res.ok) {
           const data = await res.json();
           if (typeof data.count === 'number') {
-            globalLemonCount = data.count;
-            lemonCountDisplay.textContent = globalLemonCount.toLocaleString();
+            updateDisplay(data.count);
           }
         }
       } catch (e) {}
     }
 
     fetchLemonCount();
-    setInterval(() => { if (!document.hidden) fetchLemonCount(); }, 3500);
+    setInterval(() => {
+      if (!document.hidden) fetchLemonCount();
+    }, 2500);
 
     /* =================================================================
-       2. DYNAMIC AGE FORMATTING RULES
+       3. DYNAMIC AGE FORMATTING RULES
        ================================================================= */
     function calculateAccurateAge(birthDate) {
       const now = new Date();
@@ -952,7 +1096,7 @@
     }
 
     /* =================================================================
-       3. MODAL DISPATCH & ESCAPE HANDLERS
+       4. MODAL DISPATCH & ESCAPE HANDLERS
        ================================================================= */
     function openModal(id) {
       const modal = document.getElementById(id);
@@ -983,7 +1127,7 @@
     });
 
     /* =================================================================
-       4. DIGITAL AGREEMENT VAULT (Password: lemon / spank)
+       5. DIGITAL AGREEMENT VAULT
        ================================================================= */
     const RAW_AGREEMENT_URL = "https://raw.githubusercontent.com/SimpCorp/somsammy/main/agreement.png";
 
@@ -1018,7 +1162,7 @@
     }
 
     /* =================================================================
-       5. MIDNIGHT LESSONS VAULT (Gated + Deletable + Clickable Lightbox)
+       6. MIDNIGHT LESSONS VAULT & IMAGEKIT CLIENT UPLOAD
        ================================================================= */
     const IMAGEKIT_CONFIG = {
       publicKey: "public_/psC6PuA/bRzj8d1AzifigSdrx4=",
@@ -1063,7 +1207,6 @@
         document.getElementById('lessonsAuthStage').style.display = 'none';
         document.getElementById('lessonsDeckContainer').style.display = 'flex';
         renderDeckUI();
-        syncLessonsFromEdge();
       } else {
         err.style.display = 'block';
         input.focus();
@@ -1087,8 +1230,8 @@
         const dateStr = item.date ? new Date(item.date).toLocaleDateString(undefined, { month: 'short', day: 'numeric' }) : 'Recent';
         
         return `
-          <article class="lesson-card" id="card-${index}">
-            <button class="lesson-delete-btn" title="Delete image" onclick="deleteLesson(${index})">🗑️</button>
+          <article class="lesson-card">
+            <button class="lesson-delete-btn" title="Delete image" onclick="deleteLesson(${index})">✕</button>
             <div class="lesson-img-wrap" onclick="openLightbox('${item.url}', '${item.uploader}', '${safeNote}')">
               <img class="lesson-img" src="${item.url}" alt="Lesson by ${item.uploader}" loading="lazy">
             </div>
@@ -1105,30 +1248,11 @@
     }
 
     function deleteLesson(index) {
-      if (!confirm("Are you sure you want to delete this photo?")) return;
-      
+      if (!confirm("Remove this photo from the deck?")) return;
       const lessons = getStoredLessons();
       lessons.splice(index, 1);
       saveStoredLessons(lessons);
       renderDeckUI();
-    }
-
-    async function syncLessonsFromEdge() {
-      try {
-        const res = await fetch('/api/lessons');
-        if (res.ok) {
-          const data = await res.json();
-          if (data && Array.isArray(data.deck) && data.deck.length > 0) {
-            const localLessons = getStoredLessons();
-            const map = new Map();
-            localLessons.forEach(l => map.set(l.url, l));
-            data.deck.forEach(d => map.set(d.url, d));
-            const merged = Array.from(map.values()).sort((a,b) => new Date(b.date || 0) - new Date(a.date || 0));
-            saveStoredLessons(merged);
-            renderDeckUI();
-          }
-        }
-      } catch (e) {}
     }
 
     async function handleUploadSubmit(e) {
@@ -1204,7 +1328,7 @@
     }
 
     /* =================================================================
-       6. RESPONSIVE LIGHTBOX
+       7. LIGHTBOX CONTROLS
        ================================================================= */
     function openLightbox(url, uploader, note) {
       const overlay = document.getElementById('lightboxOverlay');
@@ -1225,7 +1349,7 @@
       }
     }
 
-    // Initialize ages on load
+    // Initialize ages on boot
     initProfileAges();
   </script>
 </body>
