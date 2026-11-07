@@ -52,7 +52,6 @@
       justify-content: space-between;
     }
 
-    /* Ambient glow */
     .glow {
       position: fixed;
       width: 340px;
@@ -67,7 +66,6 @@
       right: -60px;
     }
 
-    /* Header */
     header {
       position: relative;
       z-index: 2;
@@ -93,7 +91,6 @@
       border: 1px solid var(--border);
     }
 
-    /* Main Content */
     main {
       position: relative;
       z-index: 1;
@@ -109,7 +106,7 @@
       margin-bottom: 28px;
     }
 
-    /* Interactive Lemon Counter */
+    /* Counter */
     .lemon-stage {
       display: flex;
       align-items: center;
@@ -152,12 +149,12 @@
       font-weight: 800;
     }
 
-    /* Profile Cards */
+    /* Profiles */
     .cards-wrapper {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 16px;
-      margin-bottom: 24px;
+      margin-bottom: 28px;
     }
 
     .profile-card {
@@ -230,10 +227,10 @@
 
     /* Actions Bar */
     .actions-bar {
-      display: flex;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
       gap: 12px;
-      margin-bottom: 28px;
+      margin-bottom: 24px;
     }
 
     .btn-action {
@@ -243,14 +240,16 @@
       font-family: inherit;
       font-size: 0.88rem;
       font-weight: 700;
-      padding: 12px 20px;
+      padding: 14px 20px;
       border-radius: 100px;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 8px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.02);
       transition: transform 0.25s var(--transition), box-shadow 0.25s var(--transition), border-color 0.25s var(--transition);
+      width: 100%;
     }
 
     .btn-action:hover {
@@ -299,7 +298,7 @@
       background: #ffffff;
       border-radius: var(--radius);
       border: 1px solid var(--border);
-      max-width: 520px;
+      max-width: 540px;
       width: 100%;
       max-height: 88vh;
       overflow-y: auto;
@@ -308,6 +307,10 @@
       box-shadow: 0 24px 60px rgba(0, 0, 0, 0.12);
       transform: translateY(20px) scale(0.96);
       transition: transform 0.35s var(--transition);
+    }
+
+    .modal-card.wide {
+      max-width: 760px;
     }
 
     .modal-overlay.active .modal-card {
@@ -348,13 +351,6 @@
       color: var(--text);
     }
 
-    /* Agreement Vault specific */
-    .vault-auth {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
     .input-field, .select-field, .textarea-field {
       width: 100%;
       font-family: inherit;
@@ -380,6 +376,7 @@
       display: none;
     }
 
+    /* Agreement Styles */
     .agreement-container {
       display: none;
       position: relative;
@@ -415,7 +412,7 @@
       100% { background-position: 200% 0; }
     }
 
-    /* Scheduled Plans styling */
+    /* Scheduled Plans */
     .plans-list {
       list-style: none;
       display: flex;
@@ -447,43 +444,42 @@
       color: var(--muted);
     }
 
-    /* Photo Deck Section */
-    .deck-section {
-      margin-top: 8px;
+    /* Midnight Lessons Deck Inside Vault */
+    .lessons-deck-container {
+      display: none;
+      flex-direction: column;
+      gap: 20px;
     }
 
-    .deck-header {
+    .deck-topbar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 16px;
-    }
-
-    .deck-title {
-      font-size: 1.15rem;
-      font-weight: 800;
-      letter-spacing: -0.02em;
+      gap: 12px;
+      flex-wrap: wrap;
     }
 
     .deck-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
       gap: 16px;
     }
 
     .lesson-card {
-      background: var(--card-bg);
+      background: #ffffff;
       border: 1px solid var(--border);
       border-radius: 18px;
       overflow: hidden;
       display: flex;
       flex-direction: column;
       box-shadow: 0 4px 12px rgba(0,0,0,0.02);
-      transition: transform 0.3s var(--transition);
+      transition: transform 0.25s var(--transition), box-shadow 0.25s var(--transition);
+      position: relative;
     }
 
     .lesson-card:hover {
       transform: translateY(-3px);
+      box-shadow: 0 10px 22px rgba(0,0,0,0.05);
     }
 
     .lesson-img-wrap {
@@ -492,6 +488,7 @@
       background: #f7f5ed;
       overflow: hidden;
       position: relative;
+      cursor: pointer;
     }
 
     .lesson-img {
@@ -499,43 +496,170 @@
       height: 100%;
       object-fit: cover;
       display: block;
+      transition: transform 0.35s var(--transition);
+    }
+
+    .lesson-img-wrap:hover .lesson-img {
+      transform: scale(1.04);
+    }
+
+    .lesson-delete-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 0.95rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+      transition: transform 0.2s ease, background 0.2s ease;
+      z-index: 5;
+    }
+
+    .lesson-delete-btn:hover {
+      transform: scale(1.1);
+      background: #fee2e2;
+      border-color: #fca5a5;
     }
 
     .lesson-body {
-      padding: 16px;
+      padding: 14px;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 6px;
       flex: 1;
     }
 
+    .lesson-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
     .lesson-uploader {
-      font-size: 0.75rem;
+      font-size: 0.74rem;
       font-weight: 700;
       color: var(--muted);
       text-transform: uppercase;
-      letter-spacing: 0.03em;
+      letter-spacing: 0.04em;
+    }
+
+    .lesson-date {
+      font-size: 0.7rem;
+      color: #a8a199;
+      font-weight: 500;
     }
 
     .lesson-note {
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       line-height: 1.4;
       color: var(--text);
       word-break: break-word;
+      margin-top: 2px;
     }
 
     .empty-deck {
-      padding: 32px;
+      padding: 40px 20px;
       text-align: center;
       color: var(--muted);
       font-size: 0.92rem;
-      background: #ffffff;
+      background: #faf8f5;
       border: 1px dashed var(--border);
       border-radius: var(--radius);
       grid-column: 1 / -1;
     }
 
-    /* Footer */
+    /* Fullscreen Responsive Lightbox */
+    .lightbox-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(20, 18, 16, 0.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      z-index: 200;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s var(--transition);
+    }
+
+    .lightbox-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      font-size: 1.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s ease;
+      z-index: 10;
+    }
+
+    .lightbox-close:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    .lightbox-content {
+      max-width: 90vw;
+      max-height: 85vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .lightbox-img {
+      max-width: 100%;
+      max-height: 72vh;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      border-radius: 14px;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+    }
+
+    .lightbox-caption {
+      color: #fdfcf7;
+      text-align: center;
+      max-width: 600px;
+    }
+
+    .lightbox-caption .author {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--lemon-yellow);
+      margin-bottom: 4px;
+    }
+
+    .lightbox-caption .note {
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
+
     footer {
       position: relative;
       z-index: 1;
@@ -552,26 +676,17 @@
       body {
         padding: 18px;
       }
-
       .cards-wrapper {
         grid-template-columns: 1fr;
         gap: 12px;
       }
-
       .actions-bar {
-        flex-direction: column;
+        grid-template-columns: 1fr;
       }
-
-      .btn-action {
-        width: 100%;
-        justify-content: center;
-      }
-
       .lemon-stage {
         width: 100%;
         justify-content: center;
       }
-
       .deck-grid {
         grid-template-columns: 1fr;
       }
@@ -591,13 +706,13 @@
     <main>
       <h1 class="headline">Sammy & Som.</h1>
 
-      <!-- Cross-Device Real-Time Lemon Counter -->
+      <!-- Real-Time Cloud Squeezer -->
       <div class="lemon-stage">
         <span class="interactive-lemon" id="lemonBtn" onclick="squeezeLemon()" title="Click to squeeze">🍋</span>
         <span class="lemon-info" id="lemonStatus">Squeezed <strong id="lemonCount">...</strong> times 🍋</span>
       </div>
 
-      <!-- Profiles with Dynamic Accurate Ages -->
+      <!-- Profiles with Dynamic Ages -->
       <div class="cards-wrapper">
         <div class="profile-card">
           <span class="role-badge">The Teacher</span>
@@ -617,11 +732,11 @@
         </div>
       </div>
 
-      <!-- Actions Bar -->
+      <!-- Action Buttons -->
       <div class="actions-bar">
-        <button class="btn-action primary" onclick="openModal('uploadModal')">
-          <span>📸</span>
-          <span>Upload Lesson</span>
+        <button class="btn-action primary" onclick="openLessonsVault()">
+          <span>🌙</span>
+          <span>Midnight Lessons</span>
         </button>
         <button class="btn-action" onclick="openModal('plansModal')">
           <span>📅</span>
@@ -632,16 +747,6 @@
           <span>Digital Agreement</span>
         </button>
       </div>
-
-      <!-- Photo Deck: Midnight Hour Lessons -->
-      <section class="deck-section">
-        <div class="deck-header">
-          <h2 class="deck-title">Midnight Hour Lessons</h2>
-        </div>
-        <div class="deck-grid" id="deckGrid">
-          <div class="empty-deck">Loading lessons...</div>
-        </div>
-      </section>
     </main>
 
     <footer>
@@ -650,47 +755,42 @@
     </footer>
   </div>
 
-  <!-- MODAL 1: Agreement Vault -->
-  <div class="modal-overlay" id="agreementModal" onclick="handleOverlayClick(event, 'agreementModal')">
-    <div class="modal-card">
+  <!-- MODAL: Midnight Lessons Vault (Password Protected + Photo Deck) -->
+  <div class="modal-overlay" id="lessonsModal" onclick="handleOverlayClick(event, 'lessonsModal')">
+    <div class="modal-card wide">
       <div class="modal-header">
-        <h3 class="modal-title">Digitally Signed Agreement</h3>
-        <button class="modal-close" onclick="closeModal('agreementModal')">&times;</button>
+        <h3 class="modal-title">Midnight Hour Lessons</h3>
+        <button class="modal-close" onclick="closeModal('lessonsModal')">&times;</button>
       </div>
 
-      <div id="vaultAuthStage" class="vault-auth">
+      <!-- Password Lock Screen -->
+      <div id="lessonsAuthStage" style="display: flex; flex-direction: column; gap: 14px;">
         <p style="font-size: 0.92rem; color: var(--muted); line-height: 1.4;">
-          This record is protected. Enter the keyphrase to decrypt and inspect the contract.
+          This private album is locked. Enter the keyphrase to access the deck.
         </p>
-        <input type="password" id="agreementKeyInput" class="input-field" placeholder="Enter keyphrase..." onkeydown="if(event.key === 'Enter') unlockAgreement()">
-        <span class="vault-error" id="vaultError">Incorrect keyphrase. Access denied.</span>
-        <button class="btn-action primary" style="width: 100%; justify-content: center;" onclick="unlockAgreement()">Unlock Contract</button>
+        <input type="password" id="lessonsKeyInput" class="input-field" placeholder="Enter keyphrase..." onkeydown="if(event.key === 'Enter') unlockLessons()">
+        <span class="vault-error" id="lessonsVaultError">Incorrect keyphrase. Access denied.</span>
+        <button class="btn-action primary" style="width: 100%;" onclick="unlockLessons()">Unlock Deck</button>
       </div>
 
-      <div id="agreementContainer" class="agreement-container">
-        <div class="agreement-shimmer" id="agreementShimmer"></div>
-        <img id="agreementImage" class="agreement-img" alt="Digital Agreement of Som relying on Sammy FOREVER">
+      <!-- Unlocked Photo Deck -->
+      <div id="lessonsDeckContainer" class="lessons-deck-container">
+        <div class="deck-topbar">
+          <span style="font-size: 0.9rem; font-weight: 700; color: var(--muted);" id="deckStats">0 lessons saved</span>
+          <button class="btn-action primary" style="width: auto; padding: 10px 18px; font-size: 0.82rem;" onclick="openModal('uploadModal')">
+            <span>➕</span>
+            <span>Upload Photo</span>
+          </button>
+        </div>
+
+        <div class="deck-grid" id="deckGrid">
+          <div class="empty-deck">No lessons uploaded yet. Tap "Upload Photo" above to add your first memory.</div>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- MODAL 2: Scheduled Plans -->
-  <div class="modal-overlay" id="plansModal" onclick="handleOverlayClick(event, 'plansModal')">
-    <div class="modal-card">
-      <div class="modal-header">
-        <h3 class="modal-title">Scheduled Plans</h3>
-        <button class="modal-close" onclick="closeModal('plansModal')">&times;</button>
-      </div>
-      <ul class="plans-list">
-        <li class="plan-item">
-          <span class="plan-index">1</span>
-          <span>Blackout in Peace and Calmness (2027)</span>
-        </li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- MODAL 3: Upload Lesson -->
+  <!-- MODAL: Upload Lesson -->
   <div class="modal-overlay" id="uploadModal" onclick="handleOverlayClick(event, 'uploadModal')">
     <div class="modal-card">
       <div class="modal-header">
@@ -714,19 +814,71 @@
 
         <div>
           <label style="font-size: 0.8rem; font-weight: 700; color: var(--muted); text-transform: uppercase;">Optional Note or Emojis</label>
-          <textarea id="lessonNoteInput" class="textarea-field" rows="3" placeholder="Add details, cues, or emojis..." style="margin-top: 6px; resize: none;"></textarea>
+          <textarea id="lessonNoteInput" class="textarea-field" rows="3" placeholder="Add cues, notes, or emojis..." style="margin-top: 6px; resize: none;"></textarea>
         </div>
 
-        <button type="submit" id="uploadSubmitBtn" class="btn-action primary" style="width: 100%; justify-content: center; margin-top: 8px;">
+        <button type="submit" id="uploadSubmitBtn" class="btn-action primary" style="width: 100%; margin-top: 8px;">
           Upload to Deck
         </button>
       </form>
     </div>
   </div>
 
+  <!-- MODAL: Scheduled Plans -->
+  <div class="modal-overlay" id="plansModal" onclick="handleOverlayClick(event, 'plansModal')">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">Scheduled Plans</h3>
+        <button class="modal-close" onclick="closeModal('plansModal')">&times;</button>
+      </div>
+      <ul class="plans-list">
+        <li class="plan-item">
+          <span class="plan-index">1</span>
+          <span>Blackout in Peace and Calmness (2027)</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- MODAL: Digital Agreement -->
+  <div class="modal-overlay" id="agreementModal" onclick="handleOverlayClick(event, 'agreementModal')">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">Digitally Signed Agreement</h3>
+        <button class="modal-close" onclick="closeModal('agreementModal')">&times;</button>
+      </div>
+
+      <div id="vaultAuthStage" style="display: flex; flex-direction: column; gap: 14px;">
+        <p style="font-size: 0.92rem; color: var(--muted); line-height: 1.4;">
+          This record is protected. Enter the keyphrase to decrypt and inspect the contract.
+        </p>
+        <input type="password" id="agreementKeyInput" class="input-field" placeholder="Enter keyphrase..." onkeydown="if(event.key === 'Enter') unlockAgreement()">
+        <span class="vault-error" id="vaultError">Incorrect keyphrase. Access denied.</span>
+        <button class="btn-action primary" style="width: 100%;" onclick="unlockAgreement()">Unlock Contract</button>
+      </div>
+
+      <div id="agreementContainer" class="agreement-container">
+        <div class="agreement-shimmer" id="agreementShimmer"></div>
+        <img id="agreementImage" class="agreement-img" alt="Digital Agreement of Som relying on Sammy FOREVER">
+      </div>
+    </div>
+  </div>
+
+  <!-- FULLSCREEN LIGHTBOX -->
+  <div class="lightbox-overlay" id="lightboxOverlay" onclick="closeLightbox(event)">
+    <button class="lightbox-close" onclick="closeLightbox(event)">&times;</button>
+    <div class="lightbox-content">
+      <img id="lightboxImg" class="lightbox-img" src="" alt="Enlarged photo">
+      <div class="lightbox-caption">
+        <div class="author" id="lightboxAuthor"></div>
+        <div class="note" id="lightboxNote"></div>
+      </div>
+    </div>
+  </div>
+
   <script>
     /* =================================================================
-       1. LIVE REAL-TIME LEMON COUNTER (CounterAPI + Polling Sync)
+       1. SYNCHRONIZED LEMON COUNTER
        ================================================================= */
     const COUNTER_NAMESPACE = "sammysom_v2";
     const COUNTER_KEY = "lemons";
@@ -734,7 +886,6 @@
     const COUNTER_UP_URL = `https://api.counterapi.dev/v1/${COUNTER_NAMESPACE}/${COUNTER_KEY}/up`;
 
     let globalLemonCount = 0;
-    let isIncrementing = false;
     const lemonBtn = document.getElementById('lemonBtn');
     const lemonCountDisplay = document.getElementById('lemonCount');
 
@@ -745,50 +896,36 @@
           const data = await res.json();
           if (typeof data.count === 'number' && data.count !== globalLemonCount) {
             globalLemonCount = data.count;
-            renderLemonCount(globalLemonCount);
+            lemonCountDisplay.textContent = globalLemonCount.toLocaleString();
           }
         }
-      } catch (e) {
-        // Silent background fallback
-      }
-    }
-
-    function renderLemonCount(count) {
-      lemonCountDisplay.textContent = count.toLocaleString();
+      } catch (e) {}
     }
 
     async function squeezeLemon() {
-      // 1. Squash animation
       lemonBtn.style.transform = `scale(0.82) rotate(${Math.random() > 0.5 ? 14 : -14}deg)`;
       setTimeout(() => { lemonBtn.style.transform = ''; }, 180);
 
-      // 2. Optimistic UI update
       globalLemonCount++;
-      renderLemonCount(globalLemonCount);
+      lemonCountDisplay.textContent = globalLemonCount.toLocaleString();
 
-      // 3. Sync to cloud
       try {
         const res = await fetch(COUNTER_UP_URL);
         if (res.ok) {
           const data = await res.json();
           if (typeof data.count === 'number') {
             globalLemonCount = data.count;
-            renderLemonCount(globalLemonCount);
+            lemonCountDisplay.textContent = globalLemonCount.toLocaleString();
           }
         }
-      } catch (e) {
-        // Optimistic count persists
-      }
+      } catch (e) {}
     }
 
-    // Auto-poll every 3.5s so changes on other devices sync smoothly
     fetchLemonCount();
-    setInterval(() => {
-      if (!document.hidden) fetchLemonCount();
-    }, 3500);
+    setInterval(() => { if (!document.hidden) fetchLemonCount(); }, 3500);
 
     /* =================================================================
-       2. DYNAMIC AGE CALCULATOR WITH SPECIFIED BRACKET RULES
+       2. DYNAMIC AGE FORMATTING RULES
        ================================================================= */
     function calculateAccurateAge(birthDate) {
       const now = new Date();
@@ -801,8 +938,8 @@
     }
 
     function initProfileAges() {
-      const sammyBirth = new Date(2002, 4, 7); // May 7, 2002 (Month is 0-indexed)
-      const somBirth = new Date(2008, 4, 22);   // May 22, 2008
+      const sammyBirth = new Date(2002, 4, 7);
+      const somBirth = new Date(2008, 4, 22);
 
       const sammyAge = calculateAccurateAge(sammyBirth);
       const somAge = calculateAccurateAge(somBirth);
@@ -815,7 +952,7 @@
     }
 
     /* =================================================================
-       3. MODAL CONTROLS & ESCAPE LISTENERS
+       3. MODAL DISPATCH & ESCAPE HANDLERS
        ================================================================= */
     function openModal(id) {
       const modal = document.getElementById(id);
@@ -840,12 +977,13 @@
     window.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         document.querySelectorAll('.modal-overlay.active').forEach(m => m.classList.remove('active'));
+        document.getElementById('lightboxOverlay').classList.remove('active');
         document.body.style.overflow = '';
       }
     });
 
     /* =================================================================
-       4. DIGITAL AGREEMENT VAULT (github raw asset + case-insensitive)
+       4. DIGITAL AGREEMENT VAULT (Password: lemon / spank)
        ================================================================= */
     const RAW_AGREEMENT_URL = "https://raw.githubusercontent.com/SimpCorp/somsammy/main/agreement.png";
 
@@ -870,7 +1008,7 @@
         };
         img.onerror = () => {
           shimmer.style.display = 'none';
-          container.innerHTML = '<p style="padding: 24px; text-align: center; color: var(--muted); font-size: 0.88rem;">Agreement file not found on GitHub. Verify repository path.</p>';
+          container.innerHTML = '<p style="padding: 24px; text-align: center; color: var(--muted); font-size: 0.88rem;">Agreement file not found on GitHub.</p>';
         };
         img.src = RAW_AGREEMENT_URL;
       } else {
@@ -880,7 +1018,7 @@
     }
 
     /* =================================================================
-       5. MIDNIGHT HOUR LESSONS (ImageKit Deck + Upload Handling)
+       5. MIDNIGHT LESSONS VAULT (Gated + Deletable + Clickable Lightbox)
        ================================================================= */
     const IMAGEKIT_CONFIG = {
       publicKey: "public_/psC6PuA/bRzj8d1AzifigSdrx4=",
@@ -888,36 +1026,109 @@
       folder: "/midnight-hour-lessons"
     };
 
-    async function loadPhotoDeck() {
-      const deckGrid = document.getElementById('deckGrid');
+    const LOCAL_LESSONS_KEY = "somsammy_midnight_deck_v1";
+    let isLessonsUnlocked = false;
+
+    function getStoredLessons() {
       try {
-        const res = await fetch('/api/lessons');
-        if (!res.ok) throw new Error();
-        const data = await res.json();
-        
-        if (data && data.deck && data.deck.length > 0) {
-          deckGrid.innerHTML = data.deck.map(renderLessonCard).join('');
-        } else {
-          deckGrid.innerHTML = '<div class="empty-deck">No lessons uploaded yet. Be the first to share one.</div>';
-        }
-      } catch (err) {
-        deckGrid.innerHTML = '<div class="empty-deck">No lessons loaded yet. Upload your first picture above!</div>';
+        return JSON.parse(localStorage.getItem(LOCAL_LESSONS_KEY)) || [];
+      } catch (e) {
+        return [];
       }
     }
 
-    function renderLessonCard(item) {
-      const escapedNote = (item.note || '').replace(/</g, "&lt;").replace(/>/g, "&gt;");
-      return `
-        <article class="lesson-card">
-          <div class="lesson-img-wrap">
-            <img class="lesson-img" src="${item.thumbnailUrl || item.url}" alt="Lesson uploaded by ${item.uploader}" loading="lazy">
-          </div>
-          <div class="lesson-body">
-            <span class="lesson-uploader">${item.uploader}</span>
-            ${escapedNote ? `<p class="lesson-note">${escapedNote}</p>` : ''}
-          </div>
-        </article>
-      `;
+    function saveStoredLessons(lessons) {
+      try {
+        localStorage.setItem(LOCAL_LESSONS_KEY, JSON.stringify(lessons));
+      } catch (e) {}
+    }
+
+    function openLessonsVault() {
+      openModal('lessonsModal');
+      if (isLessonsUnlocked) {
+        renderDeckUI();
+      } else {
+        setTimeout(() => document.getElementById('lessonsKeyInput').focus(), 150);
+      }
+    }
+
+    function unlockLessons() {
+      const input = document.getElementById('lessonsKeyInput');
+      const err = document.getElementById('lessonsVaultError');
+      const val = (input.value || '').trim().toLowerCase();
+
+      if (val === 'lemon' || val === 'spank') {
+        err.style.display = 'none';
+        isLessonsUnlocked = true;
+        document.getElementById('lessonsAuthStage').style.display = 'none';
+        document.getElementById('lessonsDeckContainer').style.display = 'flex';
+        renderDeckUI();
+        syncLessonsFromEdge();
+      } else {
+        err.style.display = 'block';
+        input.focus();
+      }
+    }
+
+    function renderDeckUI() {
+      const lessons = getStoredLessons();
+      const grid = document.getElementById('deckGrid');
+      const stats = document.getElementById('deckStats');
+
+      stats.textContent = `${lessons.length} ${lessons.length === 1 ? 'lesson' : 'lessons'} recorded`;
+
+      if (lessons.length === 0) {
+        grid.innerHTML = '<div class="empty-deck">No lessons uploaded yet. Tap "Upload Photo" above to add your first memory.</div>';
+        return;
+      }
+
+      grid.innerHTML = lessons.map((item, index) => {
+        const safeNote = (item.note || '').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        const dateStr = item.date ? new Date(item.date).toLocaleDateString(undefined, { month: 'short', day: 'numeric' }) : 'Recent';
+        
+        return `
+          <article class="lesson-card" id="card-${index}">
+            <button class="lesson-delete-btn" title="Delete image" onclick="deleteLesson(${index})">🗑️</button>
+            <div class="lesson-img-wrap" onclick="openLightbox('${item.url}', '${item.uploader}', '${safeNote}')">
+              <img class="lesson-img" src="${item.url}" alt="Lesson by ${item.uploader}" loading="lazy">
+            </div>
+            <div class="lesson-body">
+              <div class="lesson-meta">
+                <span class="lesson-uploader">${item.uploader}</span>
+                <span class="lesson-date">${dateStr}</span>
+              </div>
+              ${safeNote ? `<p class="lesson-note">${safeNote}</p>` : ''}
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    function deleteLesson(index) {
+      if (!confirm("Are you sure you want to delete this photo?")) return;
+      
+      const lessons = getStoredLessons();
+      lessons.splice(index, 1);
+      saveStoredLessons(lessons);
+      renderDeckUI();
+    }
+
+    async function syncLessonsFromEdge() {
+      try {
+        const res = await fetch('/api/lessons');
+        if (res.ok) {
+          const data = await res.json();
+          if (data && Array.isArray(data.deck) && data.deck.length > 0) {
+            const localLessons = getStoredLessons();
+            const map = new Map();
+            localLessons.forEach(l => map.set(l.url, l));
+            data.deck.forEach(d => map.set(d.url, d));
+            const merged = Array.from(map.values()).sort((a,b) => new Date(b.date || 0) - new Date(a.date || 0));
+            saveStoredLessons(merged);
+            renderDeckUI();
+          }
+        }
+      } catch (e) {}
     }
 
     async function handleUploadSubmit(e) {
@@ -936,64 +1147,86 @@
       submitBtn.disabled = true;
       submitBtn.textContent = 'Uploading...';
 
+      let uploadedUrl = null;
+
       try {
-        // 1. Get Auth Signature from Pages Function
         const authRes = await fetch('/api/imagekit-auth');
-        if (!authRes.ok) throw new Error("Could not retrieve ImageKit upload token");
-        const { token, expire, signature } = await authRes.json();
+        if (authRes.ok) {
+          const { token, expire, signature } = await authRes.json();
+          const safeNoteTag = "note:" + btoa(unescape(encodeURIComponent(note)));
+          const uploaderTag = "uploader:" + uploader;
 
-        // 2. Format tags for author & note storage
-        const safeNoteTag = "note:" + btoa(unescape(encodeURIComponent(note)));
-        const uploaderTag = "uploader:" + uploader;
+          const formData = new FormData();
+          formData.append("file", file);
+          formData.append("fileName", `${Date.now()}_${file.name.replace(/\s+/g, '_')}`);
+          formData.append("publicKey", IMAGEKIT_CONFIG.publicKey);
+          formData.append("signature", signature);
+          formData.append("expire", expire);
+          formData.append("token", token);
+          formData.append("folder", IMAGEKIT_CONFIG.folder);
+          formData.append("tags", `${uploaderTag},${safeNoteTag}`);
 
-        // 3. Build multipart form
-        const formData = new FormData();
-        formData.append("file", file);
-        formData.append("fileName", `${Date.now()}_${file.name.replace(/\s+/g, '_')}`);
-        formData.append("publicKey", IMAGEKIT_CONFIG.publicKey);
-        formData.append("signature", signature);
-        formData.append("expire", expire);
-        formData.append("token", token);
-        formData.append("folder", IMAGEKIT_CONFIG.folder);
-        formData.append("tags", `${uploaderTag},${safeNoteTag}`);
+          const ikRes = await fetch("https://upload.imagekit.io/api/v1/files/upload", {
+            method: "POST",
+            body: formData
+          });
 
-        // 4. Send directly to ImageKit CDN
-        const ikRes = await fetch("https://upload.imagekit.io/api/v1/files/upload", {
-          method: "POST",
-          body: formData
-        });
-
-        if (!ikRes.ok) throw new Error("Image upload failed");
-        const uploadResult = await ikRes.json();
-
-        // 5. Prepend immediately to UI
-        const deckGrid = document.getElementById('deckGrid');
-        if (deckGrid.querySelector('.empty-deck')) {
-          deckGrid.innerHTML = '';
+          if (ikRes.ok) {
+            const uploadResult = await ikRes.json();
+            uploadedUrl = uploadResult.url;
+          }
         }
-        
-        const newCardHtml = renderLessonCard({
-          url: uploadResult.url,
-          thumbnailUrl: uploadResult.thumbnailUrl || `${uploadResult.url}?tr=w-600,q-85,f-auto`,
-          uploader: uploader,
-          note: note
-        });
-        deckGrid.insertAdjacentHTML('afterbegin', newCardHtml);
+      } catch (err) {}
 
-        // Reset and close
-        document.getElementById('uploadForm').reset();
-        closeModal('uploadModal');
-      } catch (err) {
-        alert("Upload error: " + (err.message || "Something went wrong"));
-      } finally {
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Upload to Deck';
+      if (!uploadedUrl) {
+        uploadedUrl = await new Promise((resolve) => {
+          const reader = new FileReader();
+          reader.onload = (ev) => resolve(ev.target.result);
+          reader.readAsDataURL(file);
+        });
+      }
+
+      const lessons = getStoredLessons();
+      lessons.unshift({
+        url: uploadedUrl,
+        uploader: uploader,
+        note: note,
+        date: new Date().toISOString()
+      });
+      saveStoredLessons(lessons);
+
+      document.getElementById('uploadForm').reset();
+      closeModal('uploadModal');
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Upload to Deck';
+
+      renderDeckUI();
+    }
+
+    /* =================================================================
+       6. RESPONSIVE LIGHTBOX
+       ================================================================= */
+    function openLightbox(url, uploader, note) {
+      const overlay = document.getElementById('lightboxOverlay');
+      const img = document.getElementById('lightboxImg');
+      const authorEl = document.getElementById('lightboxAuthor');
+      const noteEl = document.getElementById('lightboxNote');
+
+      img.src = url;
+      authorEl.textContent = `Uploaded by ${uploader}`;
+      noteEl.textContent = note || '';
+
+      overlay.classList.add('active');
+    }
+
+    function closeLightbox(event) {
+      if (event.target.id === 'lightboxOverlay' || event.target.classList.contains('lightbox-close')) {
+        document.getElementById('lightboxOverlay').classList.remove('active');
       }
     }
 
-    // Initialize ages & load deck on boot
+    // Initialize ages on load
     initProfileAges();
-    loadPhotoDeck();
   </script>
 </body>
 </html>
